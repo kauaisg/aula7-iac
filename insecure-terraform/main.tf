@@ -21,9 +21,9 @@ provider "aws" {
 # -------------------------
 # 1) S3 bucket SEM criptografia (má prática)
 # -------------------------
-resource "aws_s3_bucket" "insecure_bucket" {
-  bucket = "meu-bucket" 
-}
+#resource "aws_s3_bucket" "insecure_bucket" {
+#  bucket = "meu-bucket" 
+#}
 
 # -------------------------
 # 2) Security Group abrindo SSH (22/tcp) para o mundo (0.0.0.0/0) – má prática
@@ -44,7 +44,7 @@ resource "aws_security_group" "insecure_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.2.0/24"]
   }
 
   egress {
@@ -52,7 +52,7 @@ resource "aws_security_group" "insecure_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.2.0/24"]
   }
 
   tags = {
