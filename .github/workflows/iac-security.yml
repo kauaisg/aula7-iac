@@ -1,9 +1,6 @@
 name: IaC Security Scan
 
 on:
-  push:
-    branches:
-      - develop
   pull_request:
     branches: [ "main" ]
 
