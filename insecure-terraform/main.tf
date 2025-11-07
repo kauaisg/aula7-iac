@@ -12,6 +12,8 @@ terraform {
   }
 }
 
+
+
 provider "aws" {
   region = "us-east-1"
 }
@@ -19,10 +21,9 @@ provider "aws" {
 # -------------------------
 # 1) S3 bucket SEM criptografia (má prática)
 # -------------------------
-resource "aws_s3_bucket" "insecure_bucket" {
-  bucket = "iac-insecure-bucket-example-CHANGE-ME" # altere para um nome único se for aplicar de verdade
-  # Nenhuma configuração de encryption aqui -> scanners devem alertar
-}
+#resource "aws_s3_bucket" "insecure_bucket" {
+#  bucket = "meu-bucket" 
+#}
 
 # -------------------------
 # 2) Security Group abrindo SSH (22/tcp) para o mundo (0.0.0.0/0) – má prática
@@ -43,7 +44,7 @@ resource "aws_security_group" "insecure_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.2.0/24"]
   }
 
   egress {
@@ -51,7 +52,7 @@ resource "aws_security_group" "insecure_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.2.0/24"]
   }
 
   tags = {
@@ -63,7 +64,7 @@ resource "aws_security_group" "insecure_sg" {
 # -------------------------
 # 3) KMS key com rota de exemplo faltando políticas restritivas (apenas ilustrativo)
 # -------------------------
-resource "aws_kms_key" "weak_kms" {
-   description             = "Exemplo de KMS sem política reforçada (comentado para evitar cobrança inadvertida)"
-   deletion_window_in_days = 7
-}
+#resource "aws_kms_key" "weak_kms" {
+#   description             = "Exemplo de KMS sem política reforçada (comentado para evitar cobrança inadvertida)"
+#   deletion_window_in_days = 7
+#}
