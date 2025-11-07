@@ -20,8 +20,7 @@ provider "aws" {
 # 1) S3 bucket SEM criptografia (má prática)
 # -------------------------
 resource "aws_s3_bucket" "insecure_bucket" {
-  bucket = "iac-insecure-bucket-example-CHANGE-ME" # altere para um nome único se for aplicar de verdade
-  # Nenhuma configuração de encryption aqui -> scanners devem alertar
+  bucket = "meu-bucket" 
 }
 
 # -------------------------
@@ -63,7 +62,7 @@ resource "aws_security_group" "insecure_sg" {
 # -------------------------
 # 3) KMS key com rota de exemplo faltando políticas restritivas (apenas ilustrativo)
 # -------------------------
-resource "aws_kms_key" "weak_kms" {
-   description             = "Exemplo de KMS sem política reforçada (comentado para evitar cobrança inadvertida)"
-   deletion_window_in_days = 7
-}
+#resource "aws_kms_key" "weak_kms" {
+#   description             = "Exemplo de KMS sem política reforçada (comentado para evitar cobrança inadvertida)"
+#   deletion_window_in_days = 7
+#}
